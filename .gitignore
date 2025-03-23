@@ -1,0 +1,6 @@
+# Ignore test output folder
+test-output/
+
+# Ignore propert file
+*.Config.properties
+*.service.now.app.config.properties
