@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>somFramework</groupId>
-  <artifactId>somFramework</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <properties>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>somFramework</groupId>
+	<artifactId>somFramework</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<properties>
 		<java.version>17</java.version>
 		<selenium.version>4.24.0</selenium.version>
 		<testng.version>7.7.1</testng.version>
@@ -17,6 +17,8 @@
 		<cucumber.jvm.testng.version>7.21.1</cucumber.jvm.testng.version>
 		<jackson.databind.version>2.18.0</jackson.databind.version>
 		<json.version>20210307</json.version>
+		<owner.version>1.0.12</owner.version>
+
 	</properties>
 	<dependencies>
 		<dependency>
@@ -53,6 +55,11 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>${gson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aeonbits.owner</groupId>
+			<artifactId>owner</artifactId>
+			<version>${owner.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>

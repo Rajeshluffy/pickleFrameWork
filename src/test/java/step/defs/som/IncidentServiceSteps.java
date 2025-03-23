@@ -4,11 +4,15 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import com.api.rest.assured.base.RequestSpecBuilder;
+import com.serivcenow.api.services.ServiceNow;
+
 import service.now.pojos.IncidentRequestPayload;
 
 import com.service.now.endpoints.IncidentService;
 
+
 public class IncidentServiceSteps {
+	ServiceNow serviceNow = new ServiceNow();
 
 	RequestSpecBuilder request = new RequestSpecBuilder();
 
@@ -17,26 +21,27 @@ public class IncidentServiceSteps {
 	IncidentService incidentService = new IncidentService();
 
 	IncidentRequestPayload pojo = new IncidentRequestPayload();
+	
+	
 
 	@Given("Set the base uri of the service now api")
 	public void set_the_base_uri_of_the_service_now_api() {
-		request.setBaseUri("https://dev291698.service-now.com");
+		request.setBaseUri(serviceNow.serviceNowBaseUri());
 	}
 
 	@Given("Set the base path of the service now api")
 	public void set_the_base_path_of_the_service_now_api() {
-		request.setBasePath("/api/now/table");
+		request.setBasePath(serviceNow.serviceNowBasePath());
 	}
 
 	@Given("Set the basic Auth of the service now api")
 	public void set_the_basic_auth_of_the_service_now_api() {
-		request.setBasicAuth("admin","Silentisenough1!");	
+		request.setBasicAuth(serviceNow.serviceNowUsername(),serviceNow.serviceNowPassword());
 	}
 
 	@When("Set the header {string} key and header {string} value")
 	public void set_the_header_key_and_header_value(String key, String value) {
 		request.setHeaderKey(key).setHeaderValue(value);
-
 	}
 
 	@When("add the create incident request body as string")
@@ -48,10 +53,8 @@ public class IncidentServiceSteps {
 				}""";
 	}
 
-
 	@When("hit the post http method")
 	public void hit_the_post_http_method() {
-
 		incidentService.createIncident(request.build(),payload);
 	}
 

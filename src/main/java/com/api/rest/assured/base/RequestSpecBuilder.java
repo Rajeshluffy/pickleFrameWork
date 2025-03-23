@@ -8,160 +8,307 @@ import io.restassured.specification.RequestSpecification;
 
 public class RequestSpecBuilder {
 
-    private String baseUri;
-    private String basePath;
-    private ContentType contentType;
-    private ContentType accept;
-    private Map<String, String> queryParams = new HashMap<>();
-    private Map<String, String> headers = new HashMap<>();
-    private String queryParamKey;
-    private String queryParamValue;
-    private String pathParamKey;
-    private String pathParamValue;
-    private String headerKey;
-    private String headerValue;
-    private String username;
-    private String password;
-    private RequestSpecification specification;
-    private boolean preemptive;
+	private String baseUri;
+	private String basePath;
+	private String oAuthBasePath;
+	private ContentType contentType;
+	private ContentType accept;
+	private Map<String, String> queryParams = new HashMap<>();
+	private Map<String, String> headers = new HashMap<>();
+	private String queryParamKey;
+	private String queryParamValue;
+	private String pathParamKey;
+	private String pathParamValue;
+	private String headerKey;
+	private String headerValue;
+	private String username;
 
-    public RequestSpecBuilder setBaseUri(String baseUri) {
-        this.baseUri = baseUri;
-        return this;
-    }
+	private String grantType;
+	private String clientId;
+	private String clientSecret;
+	private String token;
 
-    public RequestSpecBuilder setBasePath(String basePath) {
-        this.basePath = basePath;
-        return this;
-    }
+	private String password;
+	private RequestSpecification specification;
+	private boolean preemptive;
 
-    public RequestSpecBuilder setContentType(ContentType contentType) {
-        this.contentType = contentType;
-        return this;
-    }
+	RequestAuthentication auth=	new RequestAuthentication();
 
-    public RequestSpecBuilder setAccept(ContentType accept) {
-        this.accept = accept;
-        return this;
-    }
+	/**
+	 * 
+	 * @param baseUri
+	 * @return
+	 */
+	public RequestSpecBuilder setBaseUri(String baseUri) {
+		this.baseUri = baseUri;
+		return this;
+	}
 
-    public RequestSpecBuilder setQueryParams(Map<String, String> queryParams) {
-        this.queryParams = queryParams;
-        return this;
-    }
+	/**
+	 * 
+	 * @param basePath
+	 * @return
+	 */
+	public RequestSpecBuilder setBasePath(String basePath) {
+		this.basePath = basePath;
+		return this;
+	}
+	/**
+	 * 
+	 * @param oAuthBasePath
+	 * @return
+	 */
+	public RequestSpecBuilder setOauthBasePath(String oAuthBasePath) {
+		this.oAuthBasePath = oAuthBasePath;
+		return this;
+	}
 
-    public RequestSpecBuilder setQueryParamKey(String queryParamKey) {
-        this.queryParamKey = queryParamKey;
-        return this;
-    }
+	/**
+	 * 
+	 * @param contentType
+	 * @return
+	 */
+	public RequestSpecBuilder setContentType(ContentType contentType) {
+		this.contentType = contentType;
+		return this;
+	}
+	/**
+	 * 
+	 * @param accept
+	 * @return
+	 */
+	public RequestSpecBuilder setAccept(ContentType accept) {
+		this.accept = accept;
+		return this;
+	}
 
-    public RequestSpecBuilder setQueryParamValue(String queryParamValue) {
-        this.queryParamValue = queryParamValue;
-        return this;
-    }
+	/**
+	 * 
+	 * @param queryParams
+	 * @return
+	 */
+	public RequestSpecBuilder setQueryParams(Map<String, String> queryParams) {
+		this.queryParams = queryParams;
+		return this;
+	}
 
-    public RequestSpecBuilder setPathParamValue(String pathParamValue) {
-        this.pathParamValue = pathParamValue;
-        return this;
-    }
+	/**
+	 * 
+	 * @param queryParamKey
+	 * @return
+	 */
+	public RequestSpecBuilder setQueryParamKey(String queryParamKey) {
+		this.queryParamKey = queryParamKey;
+		return this;
+	}
 
-    public RequestSpecBuilder setPathParamKey(String pathParamKey) {
-        this.pathParamKey = pathParamKey;
-        return this;
-    }
+	/**
+	 * 
+	 * @param queryParamValue
+	 * @return
+	 */
+	public RequestSpecBuilder setQueryParamValue(String queryParamValue) {
+		this.queryParamValue = queryParamValue;
+		return this;
+	}
 
-    public RequestSpecBuilder setUsername(String username) {
-        this.username = username;
-        return this;
-    }
+	/**
+	 * 
+	 * @param pathParamValue
+	 * @return
+	 */
+	public RequestSpecBuilder setPathParamValue(String pathParamValue) {
+		this.pathParamValue = pathParamValue;
+		return this;
+	}
 
-    public RequestSpecBuilder setPassword(String password) {
-        this.password = password;
-        return this;
-    }
+	/**
+	 * 
+	 * @param pathParamKey
+	 * @return
+	 */
+	public RequestSpecBuilder setPathParamKey(String pathParamKey) {
+		this.pathParamKey = pathParamKey;
+		return this;
+	}
 
-    public RequestSpecBuilder setSpecification(RequestSpecification specification) {
-        this.specification = specification;
-        return this;
-    }
+	/**
+	 * 
+	 * @param username
+	 * @return
+	 */
+	public RequestSpecBuilder setUsername(String username) {
+		this.username = username;
+		return this;
+	}
+	/**
+	 * 
+	 * @param password
+	 * @return
+	 */
+	public RequestSpecBuilder setPassword(String password) {
+		this.password = password;
+		return this;
+	}
 
-    public RequestSpecBuilder setHeaders(Map<String, String> headers) {
-        this.headers = headers;
-        return this;
-    }
+	/**
+	 * 
+	 * @param specification
+	 * @return
+	 */
+	public RequestSpecBuilder setSpecification(RequestSpecification specification) {
+		this.specification = specification;
+		return this;
+	}
 
-    public RequestSpecBuilder setHeaderKey(String headerKey) {
-        this.headerKey = headerKey;
-        return this;
-    }
+	/**
+	 * 
+	 * @param headers
+	 * @return
+	 */
+	public RequestSpecBuilder setHeaders(Map<String, String> headers) {
+		this.headers = headers;
+		return this;
+	}
 
-    public RequestSpecBuilder setHeaderValue(String headerValue) {
-        this.headerValue = headerValue;
-        return this;
-    }
+	/**
+	 * 
+	 * @param headerKey
+	 * @return
+	 */
+	public RequestSpecBuilder setHeaderKey(String headerKey) {
+		this.headerKey = headerKey;
+		return this;
+	}
 
-    public RequestSpecBuilder setPreemptive(boolean preemptive) {
-        this.preemptive = preemptive;
-        return this;
-    }
+	/**
+	 * 
+	 * @param headerValue
+	 * @return
+	 */
+	public RequestSpecBuilder setHeaderValue(String headerValue) {
+		this.headerValue = headerValue;
+		return this;
+	}
 
-    public RequestSpecBuilder setBasicAuth(String username, String password) {
-        this.username = username;
-        this.password = password;
-        return this;
-    }
+	/**
+	 * 
+	 * @param preemptive
+	 * @return
+	 */
+	public RequestSpecBuilder setPreemptive(boolean preemptive) {
+		this.preemptive = preemptive;
+		return this;
+	}
 
-    public RequestSpecification build() {
-        RequestSpecification requestSpecification = given();
+	/**
+	 * 
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+	public RequestSpecBuilder setBasicAuth(String username, String password) {
+		this.username = username;
+		this.password = password; 
+		return this;
+	}
+	/**
+	 * 
+	 * @param baseUri
+	 * @param oAuthBasePath
+	 * @param grantType
+	 * @param clientId
+	 * @param clientSecret
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+	public RequestSpecBuilder setOAuth(String baseUri,String oAuthBasePath,String grantType, String clientId, String clientSecret, String username, String password) {
+		this.baseUri =baseUri;
+		this.oAuthBasePath =oAuthBasePath;
+		this.grantType = grantType;
+		this.clientId = clientId;
+		this.clientSecret = clientSecret;
+		this.username = username;
+		this.password = password;
 
-        if (baseUri != null) {
-            requestSpecification.baseUri(baseUri);
-        }
+		auth.setOAuthBaseUrl(baseUri + oAuthBasePath);
+		token = auth.getOAuthToken(grantType, clientId, clientSecret, username, password);
 
-        if (basePath != null) {
-            requestSpecification.basePath(basePath);
-        }
+		if (token == null || token.isEmpty()) {
+			throw new RuntimeException("OAuth token retrieval failed.");
+		}
+		return this;
+	}
 
-        if (contentType != null) {
-            requestSpecification.contentType(contentType);
-        }
+	/**
+	 * 
+	 * @return
+	 */
+	public RequestSpecification build() {
+		RequestSpecification requestSpecification = given();
 
-        if (accept != null) {
-            requestSpecification.accept(accept);
-        }
+		if (baseUri != null) {
+			requestSpecification.baseUri(baseUri);
+		}
 
-        if (queryParamKey != null && queryParamValue != null) {
-            requestSpecification.queryParam(queryParamKey, queryParamValue);
-        }
+		if (basePath != null) {
+			requestSpecification.basePath(basePath);
+		}
 
-        if (pathParamKey != null && pathParamValue != null) {
-            requestSpecification.pathParam(pathParamKey, pathParamValue);
-        }
+		if (oAuthBasePath != null) {
+			requestSpecification.basePath(oAuthBasePath);
+		}
 
-        if (username != null && password != null) {
-            if (preemptive) {
-                requestSpecification.auth().preemptive().basic(username, password);
-            } else {
-                requestSpecification.auth().basic(username, password);
-            }
-        }
+		if (contentType != null) {
+			requestSpecification.contentType(contentType);
+		}
 
-        if (!queryParams.isEmpty()) {
-            requestSpecification.queryParams(queryParams);
-        }
+		if (accept != null) {
+			requestSpecification.accept(accept);
+		}
 
-        if (specification != null) {
-            requestSpecification.spec(specification);
-        }
+		if (queryParamKey != null && queryParamValue != null) {
+			requestSpecification.queryParam(queryParamKey, queryParamValue);
+		}
 
-        if (headerKey != null && headerValue != null) {
-            requestSpecification.header(headerKey, headerValue);
-        }
+		if (pathParamKey != null && pathParamValue != null) {
+			requestSpecification.pathParam(pathParamKey, pathParamValue);
+		}
 
-        if (!headers.isEmpty()) {
-            requestSpecification.headers(headers);
-        }
+		if (username != null && password != null) {
+			if (preemptive) {
+				requestSpecification.auth().preemptive().basic(username, password);
+			} else {
+				requestSpecification.auth().basic(username, password);
+			}
+		}
 
-        return requestSpecification;
-    }
+		if (!queryParams.isEmpty()) {
+			requestSpecification.queryParams(queryParams);
+		}
+
+		if (specification != null) {
+			requestSpecification.spec(specification);
+		}
+
+		if (headerKey != null && headerValue != null) {
+			requestSpecification.header(headerKey, headerValue);
+		}
+
+		if (!headers.isEmpty()) {
+			requestSpecification.headers(headers);
+		}
+
+		if (token != null) {
+			requestSpecification.auth().oauth2(token);
+			System.out.println("OAuth token applied successfully.");
+		} else {
+			System.out.println("Warning: No OAuth token found.");
+		}
+
+		return requestSpecification;
+	}
+
+
 }
