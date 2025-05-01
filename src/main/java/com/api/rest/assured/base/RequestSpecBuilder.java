@@ -27,6 +27,8 @@ public class RequestSpecBuilder {
 	private String clientId;
 	private String clientSecret;
 	private String token;
+	private String beakerToken;
+	private String refreshToken;
 
 	private String password;
 	private RequestSpecification specification;
@@ -213,7 +215,7 @@ public class RequestSpecBuilder {
 		return this;
 	}
 	/**
-	 * 
+	 * @author rajesh
 	 * @param baseUri
 	 * @param oAuthBasePath
 	 * @param grantType
@@ -239,6 +241,16 @@ public class RequestSpecBuilder {
 			throw new RuntimeException("OAuth token retrieval failed.");
 		}
 		return this;
+	}
+
+	public RequestSpecBuilder setBearerToken (String grantType, String clientId, String clientSecret,String refreshToken) {
+		this.grantType = grantType;
+		this.clientId = clientId;
+		this.clientSecret = clientSecret;
+		this.refreshToken= refreshToken;
+		token =	auth.refreshOAuthToken(grantType, clientId, clientSecret, refreshToken);
+		return this;
+
 	}
 
 	/**
@@ -302,9 +314,9 @@ public class RequestSpecBuilder {
 
 		if (token != null) {
 			requestSpecification.auth().oauth2(token);
-			System.out.println("OAuth token applied successfully.");
+			//			System.out.println("OAuth token applied successfully.");
 		} else {
-			System.out.println("Warning: No OAuth token found.");
+			//System.out.println("Warning: No OAuth token found.");
 		}
 
 		return requestSpecification;
