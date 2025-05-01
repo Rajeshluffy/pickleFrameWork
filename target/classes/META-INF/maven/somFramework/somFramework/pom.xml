@@ -104,10 +104,11 @@
 				<version>3.5.2</version>
 				<configuration>
 					<includes>
-						<include>TestNGRunner.java</include>
+						<include>**/TestNGRunner*.class</include>
 					</includes>
 				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
 </project>
